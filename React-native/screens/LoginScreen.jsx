@@ -33,10 +33,10 @@ const LoginScreen = ({ onLogin,onShowRegister }) => {
           Alert.alert('Inicio de sesión exitoso', `Bienvenido ${userData.name}`);
           onLogin(userKey); // Llama a onLogin con el userKey para simular el inicio de sesión
         } else {
-          Alert.alert('Error', 'Contraseña incorrecta');
+          Alert.alert('Error', 'Contraseña incorrectaaaaa');
         }
       } else {
-        Alert.alert('Error', 'Usuario no encontrado');
+        Alert.alert('Error', 'Usuario no encontradooooo');
       }
     } catch (error) {
       console.error(error);
