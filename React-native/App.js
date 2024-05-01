@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import LoginScreen from './screens/LoginScreen';
 import MainScreen from './screens/MainScreen';
+import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterModal';
+import { NavigationContainer } from '@react-navigation/native';
+import Mytabs from './components/Mytabs';
 
 export default function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [userId, setUserId] = useState(null);
 
-  const handleLogin = (userId) => {
+  const handleLogin = () => {
     setUserLoggedIn(true);
-    setUserId(userId);
   };
 
   const handleShowRegister = () => {
@@ -23,17 +23,19 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      {!userLoggedIn ? (
-        !showRegister ? (
-          <LoginScreen onLogin={handleLogin} onShowRegister={handleShowRegister} />
+    <NavigationContainer>
+      <View style={styles.container}>
+        {!userLoggedIn ? (
+          !showRegister ? (
+            <LoginScreen onLogin={handleLogin} onShowRegister={handleShowRegister} />
+          ) : (
+            <RegisterScreen onCancel={handleCancelRegister} />
+          )
         ) : (
-          <RegisterScreen onCancel={handleCancelRegister} />
-        )
-      ) : (
-        <MainScreen userId={userId} />
-      )}
-    </View>
+          <Mytabs />
+        )}
+      </View>
+    </NavigationContainer>
   );
 }
 

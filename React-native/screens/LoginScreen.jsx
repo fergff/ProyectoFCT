@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,Modal} from 
 import { get, ref, query, orderByChild, equalTo } from 'firebase/database';
 import { database } from '../conexion/firebaseConfig'; // conexion con firebase
 import RegisterModalContent from '../screens/RegisterModal'; //la modla
+import AsyncStorage from '@react-native-async-storage/async-storage'; // para guardar el userid
 
 const LoginScreen = ({ onLogin,onShowRegister }) => {
   const [name, setName] = useState('');
@@ -15,36 +16,39 @@ const LoginScreen = ({ onLogin,onShowRegister }) => {
     
     // Realiza una consulta para encontrar el usuario por nombre
     const userQuery = query(usersRef, orderByChild('name'), equalTo(name));
-
+  
     try {
       const snapshot = await get(userQuery);
       if (snapshot.exists()) {
         let userKey = null;
         let userData = null;
-
+  
         // Recorre los resultados. En teoría, debería haber solo un resultado dado que 'name' es único.
+        // Sin embargo, usamos un bucle para encontrar el correcto en caso de que haya más de uno por alguna razón.
         snapshot.forEach((childSnapshot) => {
-          userKey = childSnapshot.key;
-          userData = childSnapshot.val();
+          // Verifica la contraseña antes de decidir si este es el usuario correcto
+          if (childSnapshot.val().pass === password) {
+            userKey = childSnapshot.key;
+            userData = childSnapshot.val();
+          }
         });
-
-        // Verifica la contraseña
-        if (userData.pass === password) {
+  
+        if (userKey && userData) {
+          // Si se encontró un usuario con el nombre y contraseña correctos, guarda su userId
+          await AsyncStorage.setItem('userId', userKey);
           Alert.alert('Inicio de sesión exitoso', `Bienvenido ${userData.name}`);
-          onLogin(userKey); // Llama a onLogin con el userKey para simular el inicio de sesión
+          onLogin(); // Puedes pasar userKey si necesitas manejarlo en el método onLogin
         } else {
-          Alert.alert('Error', 'Contraseña incorrectaaaaa');
+          // Si userKey sigue siendo null, significa que no encontramos un usuario con esa contraseña
+          Alert.alert('Error', 'Contraseña incorrecta');
         }
       } else {
-        Alert.alert('Error', 'Usuario no encontradooooo');
+        Alert.alert('Error', 'Usuario no encontrado');
       }
     } catch (error) {
       console.error(error);
       Alert.alert('Error', 'Ocurrió un error durante el inicio de sesión');
     }
-
-    
-
   };
 
   return (
