@@ -33,15 +33,18 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define BUTTON_PIN 0 // GPIO0 como pin del botón
 #define LED_PIN 2
 bool ledState = false; // Estado inicial del LED
-
 bool lastButtonState = HIGH; // Estado anterior del botón para detectar flanco descendente
 unsigned long lastButtonPressTime = 0; // Para evitar rebotes y actualizaciones rápidas
 unsigned long lastFirebaseCheck = 0; // Para controlar la frecuencia de actualización desde Firebase
+
+// Configuración del sensor de humedad del suelo
+#define HS_PIN 34 // Pin analógico para el sensor de humedad del suelo
 
 void setup() {
   Serial.begin(9600);
   pinMode(LED_PIN, OUTPUT);
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(HS_PIN, INPUT);
   dht.begin();
 
   Wire.begin(21, 19); // SDA, SCL
@@ -72,18 +75,20 @@ void setup() {
 void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  
+  int hs = analogRead(HS_PIN);
+  float hsPercent = map(hs, 0, 4095 ,100 ,0);
+
   String basePath = "/"+ path +"/"+ userId + "/devices/" + deviceId;
   if (!isnan(h) && !isnan(t)) {
     Firebase.setFloat(firebaseData, basePath + "/SensorHum", h);
     Firebase.setFloat(firebaseData, basePath + "/Sensortemp", t);
+    Firebase.setFloat(firebaseData, basePath + "/SensorHumSuelo", hsPercent);
   }
 
   bool currentButtonState = digitalRead(BUTTON_PIN);
   if (currentButtonState != lastButtonState && (millis() - lastButtonPressTime > 50)) {
     lastButtonPressTime = millis();
     if (currentButtonState == LOW) {
-      // Cambiar el estado del LED
       ledState = !ledState;
       digitalWrite(LED_PIN, ledState ? HIGH : LOW);
       Firebase.setBool(firebaseData, basePath + "/SensorLed", ledState);
@@ -91,12 +96,11 @@ void loop() {
   }
   lastButtonState = currentButtonState;
 
-  if (millis() - lastFirebaseCheck > 2000) { // Comprobar el estado de Firebase cada 2 segundos
+  if (millis() - lastFirebaseCheck > 2000) {
     lastFirebaseCheck = millis();
     if (Firebase.getBool(firebaseData, basePath + "/SensorLed")) {
       bool firebaseLedState = firebaseData.boolData();
       if (firebaseLedState != ledState) {
-        // Actualizar el estado del LED según Firebase
         ledState = firebaseLedState;
         digitalWrite(LED_PIN, ledState ? HIGH : LOW);
       }
@@ -112,10 +116,14 @@ void loop() {
   display.print("Hum: ");
   display.print(h);
   display.println(" %");
-  display.print("LED: ");
+  display.print("Hum Suelo: ");
+  display.print(hsPercent);
+  display.println(" %");
+  display.setTextSize(2); // Aumentar tamaño
+  display.print("Riego: ");
   display.println(ledState ? "ON" : "OFF");
+  display.setTextSize(1); // Restaurar tamaño 
   display.display();
 
-  delay(10); //
-  
+  delay(10);
 }
