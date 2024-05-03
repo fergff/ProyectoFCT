@@ -54,7 +54,7 @@ import DeviceModal from '../components/DeviceModal';
 
     return (
         <View style={[styles.sContainer, { }]}>
-            <Text style={{ color: 'black', fontSize: 30 ,paddingBottom:20}}> Home </Text>
+            <Text style={{ color: 'black', fontSize: 30 ,paddingBottom:20}}> Dispositivos </Text>
             <Text style={{ color: 'black', fontSize: 20 }}>UserID: {userId}</Text>
             <View style={styles.linea} />
             <FlatList

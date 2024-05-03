@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import MainScreen from './screens/MainScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterModal';
 import { NavigationContainer } from '@react-navigation/native';
