@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,Modal} from 'react-native';
 import { get, ref, query, orderByChild, equalTo } from 'firebase/database';
 import { database } from '../conexion/firebaseConfig'; // conexion con firebase
 import RegisterModalContent from '../screens/RegisterModal'; //la modla
 import AsyncStorage from '@react-native-async-storage/async-storage'; // para guardar el userid
 
-const LoginScreen = ({ onLogin,onShowRegister }) => {
+const LoginScreen = ({ onLogin, onShowRegister }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegisterModalVisible, setRegisterModalVisible] = useState(false);
+
+  // Efecto para verificar si existe una sesión almacenada al cargar el componente
+  useEffect(() => {
+    const checkUserLoggedIn = async () => {
+      const userId = await AsyncStorage.getItem('userId');
+      if (userId) {
+        // Si hay un userId almacenado, autenticar directamente
+        Alert.alert('Autenticación', 'Autenticado automáticamente.');
+        onLogin(); // Procesa el login automáticamente
+      }
+    };
+
+    checkUserLoggedIn();
+  }, []);
 
   const handleLogin = async () => {
     // Define la referencia al nodo de usuarios en Firebase

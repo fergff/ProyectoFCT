@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native';
 import WeatherApi from '../conexion/WeatherApi';
-
+import { Picker } from '@react-native-picker/picker';
+import cities from '../data/citis.json'; //lista de ciudades k illa el piker
 
 export default function TiempoScreen({}) {
-    
+    const [selectedCityId, setSelectedCityId] = useState(cities[39].lid);  // Utiliza toledo como inicial
 
-    
-
-    const apiURL = 'https://api.tutiempo.net/json/?lan=es&apid=qwYqazqqaXzhOaa&lid=1272';
+    const apiURL = `https://api.tutiempo.net/json/?lan=es&apid=qwYqazqqaXzhOaa&lid=${selectedCityId}`;
 
      // Función para cambiar el formato de la fecha
     const formatDate = (dateString) => {
@@ -25,8 +24,15 @@ export default function TiempoScreen({}) {
               return (
                   <View style={styles.container}>
                       <View style={styles.header}>
-                          <Text style={styles.headerText}>Tiempo : Toledo</Text>
-                          
+                          <Text style={styles.headerText}>Tiempo :</Text>
+                          <Picker style={{  height: 10, width: '80%'}}
+                            selectedValue={selectedCityId}
+                            onValueChange={(itemValue, itemIndex) => setSelectedCityId(itemValue)}
+                            >
+                            {cities.map((city) => (
+                                <Picker.Item key={city.lid} label={city.nombre} value={city.lid} />
+                            ))}
+                          </Picker>
                       </View>
                       
                       <View style={styles.dayContainerHoy}>  
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 5,
         borderWidth: 2, 
-        borderColor: '#000',
+        borderColor: '#68A74D',
     },
     date: {
         fontSize: 16,
