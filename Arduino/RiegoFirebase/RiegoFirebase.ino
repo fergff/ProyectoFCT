@@ -75,13 +75,14 @@ void setup() {
 void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
+  float roundedTemp = round(t * 100) / 100.0; //redondear la temperatura a dos decimales
   int hs = analogRead(HS_PIN);
   float hsPercent = map(hs, 0, 4095 ,100 ,0);
 
   String basePath = "/"+ path +"/"+ userId + "/devices/" + deviceId;
   if (!isnan(h) && !isnan(t)) {
     Firebase.setFloat(firebaseData, basePath + "/SensorHum", h);
-    Firebase.setFloat(firebaseData, basePath + "/Sensortemp", t);
+    Firebase.setFloat(firebaseData, basePath + "/Sensortemp", roundedTemp);
     Firebase.setFloat(firebaseData, basePath + "/SensorHumSuelo", hsPercent);
   }
 
