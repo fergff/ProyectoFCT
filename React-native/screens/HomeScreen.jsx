@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // para obtener iduser
 import { ref, onValue } from 'firebase/database';
 import { database } from '../conexion/firebaseConfig';
-import DeviceModal from '../components/DeviceModal'; 
+import DeviceModal from './Modal/DeviceModal'; 
 
 
   export default function HomeScreen({}) {
@@ -55,7 +55,6 @@ import DeviceModal from '../components/DeviceModal';
     return (
         <View style={[styles.sContainer, { }]}>
             <Text style={{ color: 'black', fontSize: 30 ,paddingBottom:20}}> Dispositivos </Text>
-            <Text style={{ color: 'black', fontSize: 20 }}>UserID: {userId}</Text>
             <View style={styles.linea} />
             <FlatList
                 data={devices}
