@@ -24,8 +24,8 @@ export default function TiempoScreen({}) {
               return (
                   <View style={styles.container}>
                       <View style={styles.header}>
-                          <Text style={styles.headerText}>Tiempo :</Text>
-                          <Picker style={{  height: 10, width: '80%'}}
+                          <Text style={styles.tittle}>Tiempo :</Text>
+                          <Picker style={{  height: 10, width: '65%'}}
                             selectedValue={selectedCityId}
                             onValueChange={(itemValue, itemIndex) => setSelectedCityId(itemValue)}
                             >
@@ -87,9 +87,12 @@ const styles = StyleSheet.create({
       flexDirection:'row',
       alignItems:'center',
     },
-    headerText: {
-        fontSize: 20,
+    tittle:{
+        color: '#68A74D', 
+        fontSize: 30 ,
+        paddingBottom:10,
         fontWeight: 'bold',
+        fontStyle:'italic',
     },
     dayContainer: {
         marginBottom: 10,

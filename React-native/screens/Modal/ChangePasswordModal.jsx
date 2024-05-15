@@ -1,7 +1,33 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, TouchableWithoutFeedback, TextInput, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getDatabase, ref, update } from 'firebase/database';
 
 const ChangePasswordModal = ({ visible, onClose }) => {
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleChangePassword = async () => {
+    if (newPassword !== confirmPassword) {
+      Alert.alert("Error", "Las contraseñas no coinciden.");
+      return;
+    }
+
+    try {
+      const userId = await AsyncStorage.getItem('userId');
+      if (!userId) throw new Error('No se encontró el ID de usuario');
+
+      const db = getDatabase();
+      const userRef = ref(db, `usuarios/${userId}`);
+      await update(userRef, { pass: newPassword });
+      Alert.alert("Éxito", "Contraseña actualizada con éxito!");
+      onClose();
+    } catch (error) {
+      console.error('Error al cambiar la contraseña:', error);
+      Alert.alert("Error", "Error al cambiar la contraseña");
+    }
+  };
+
   return (
     <Modal
       animationType="slide"
@@ -13,10 +39,26 @@ const ChangePasswordModal = ({ visible, onClose }) => {
         <View style={styles.outerModalView}>
           <TouchableWithoutFeedback onPress={() => {}}>
             <View style={styles.tallModalView}>
-              <Text style={styles.modalText}>Formulario para cambiar contraseña...</Text>
-              <TouchableOpacity style={styles.buttonChange} onPress={onClose}>
-                <Text style={styles.textButton}>Cambiar</Text>
-              </TouchableOpacity>
+              <View style={styles.border}>
+                <Text style={styles.tittle}>Cambiar Contraseña:</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={setNewPassword}
+                  value={newPassword}
+                  secureTextEntry
+                  placeholder="Nueva Contraseña"
+                />
+                <TextInput
+                  style={styles.input}
+                  onChangeText={setConfirmPassword}
+                  value={confirmPassword}
+                  secureTextEntry
+                  placeholder="Confirmar contraseña"
+                />
+                <TouchableOpacity style={styles.buttonChange} onPress={handleChangePassword}>
+                  <Text style={styles.textButton}>Cambiar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -33,10 +75,10 @@ const styles = StyleSheet.create({
   },
   tallModalView: {
     width: '90%',
-    height: '30%',
+    height: '50%',
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 20,
+    padding: 5,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -47,10 +89,36 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5
   },
-  modalText: {
-    fontSize: 20,
-    textAlign: "center",
-    marginBottom: 20
+  tittle:{
+    color: '#68A74D', 
+    fontSize: 30 ,
+    paddingBottom:20,
+    fontWeight: 'bold',
+    fontStyle:'italic',
+  },
+  border:{
+    width:'100%',
+    height: '100%',
+    borderRadius: 15,
+    borderColor:'#68A74D',
+    borderWidth:3,
+    padding: 15,
+  },
+  input: {
+    width: '100%',
+    height: 40,
+    marginBottom: 20,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 5,
+    borderColor: '#ccc'
+  },
+  buttonContainerEnd: {
+    width: '100%',
+    flex: 1, // Toma todo el espacio restante
+    justifyContent: 'flex-end', // Alinea el botón hacia el final del contenedor
+    alignItems: 'center',
+    paddingBottom:15,
   },
   buttonChange: {
     backgroundColor: "#68A74D",

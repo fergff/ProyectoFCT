@@ -35,9 +35,9 @@ export default function SettingsScreen() {
 
   return (
     <View style={styles.sContainer}>
-      <Text style={{ color: 'black', fontSize: 30, paddingBottom: 20 }}>Cuenta</Text>
-      {userId && <Text style={{ color: 'grey', fontSize: 20, paddingBottom: 20 }}>UserID: {userId}</Text>}
-      <View style={styles.linea} />
+      <Text style={styles.tittle}>Cuenta :</Text>
+      <Text style={styles.subTittle}>UserID: {userId}</Text>
+
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => setChangePasswordModalVisible(true)} style={[styles.button,styles.bgChange]}>
           <Text style={styles.botonText}>Cambiar Contraseña</Text>
@@ -50,7 +50,7 @@ export default function SettingsScreen() {
             <Image source={require('../assets/Icons/Logout.png')} style={styles.logoBoton} />
         </TouchableOpacity>
       </View>
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainerEnd}>
         <TouchableOpacity onPress={() => setInfoModalVisible(true)} style={[styles.button,styles.bgInfo]}>
             <Text style={styles.botonText}>Acerca De</Text>
             <Image source={require('../assets/Icons/Info.png')} style={styles.logoBoton} />
@@ -69,6 +69,19 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 5,
     },
+    tittle:{
+      color: '#68A74D', 
+      fontSize: 30 ,
+      paddingBottom:10,
+      fontWeight: 'bold',
+      fontStyle:'italic',
+    },
+    subTittle:{
+      color: '#737373', 
+      fontSize: 20, 
+      paddingLeft:20,
+      paddingBottom: 10
+    },
     linea: {
         borderBottomColor: '#68A74D',
         borderBottomWidth: 2,
@@ -78,6 +91,13 @@ const styles = StyleSheet.create({
       marginTop: 15,
       alignItems: 'center',
       width: '100%',
+    },
+    buttonContainerEnd: {
+      width: '100%',
+      flex: 1, // Toma todo el espacio restante
+      justifyContent: 'flex-end', // Alinea el botón hacia el final del contenedor
+      alignItems: 'center',
+      paddingBottom:15,
     },
     button:{
       width: '93%',

@@ -54,12 +54,16 @@ import DeviceModal from './Modal/DeviceModal';
 
     return (
         <View style={[styles.sContainer, { }]}>
-            <Text style={{ color: 'black', fontSize: 30 ,paddingBottom:20}}> Dispositivos </Text>
-            <View style={styles.linea} />
+            <Text style={styles.tittle}> Dispositivos </Text>
+           
             <FlatList
                 data={devices}
                 renderItem={({ item }) => (
-                <TouchableOpacity style={styles.card} onPress={() => handlePressDevice(item)}>
+                <TouchableOpacity style={[styles.card,styles.enLinea]} onPress={() => handlePressDevice(item)}>
+                    <Image
+                        source={require('../assets/Icons/PottedPlant.png')}
+                        style={[styles.icon, { tintColor: '#68A74D' }]}
+                    />
                     <Text style={styles.cardTitle}>{item.id}</Text>
                 </TouchableOpacity>
                 )}
@@ -83,13 +87,15 @@ const styles = new StyleSheet.create({
         flex: 1,
         paddingTop: 5,
     },
+    tittle:{
+        color: '#68A74D', 
+        fontSize: 30 ,
+        paddingBottom:10,
+        fontWeight: 'bold',
+        fontStyle:'italic',
+    },
     centrar: {
         alignItems:'center',
-    },
-    linea: {
-        borderBottomColor: '#68A74D', // Color de la línea
-        borderBottomWidth: 2, // Grosor de la línea
-        alignSelf: 'stretch', // Hace que la línea se extienda en el ancho disponible
     },
     row: {
         flex: 1,
@@ -100,10 +106,10 @@ const styles = new StyleSheet.create({
         borderRadius: 5,
         borderColor:'#68A74D',
         borderWidth:3,
-        padding: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 15,
         margin: 5,
         width: '48%',
-        alignItems: 'center', // Centrar el contenido de la tarjeta
         // Sombra para el estilo de tarjeta
         shadowColor: "#000",
         shadowOffset: {
@@ -114,8 +120,19 @@ const styles = new StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
       },
-      cardTitle: {
+    cardTitle: {
         fontSize: 16,
         fontWeight: 'bold',
-      },
+        flexShrink: 1, // ajusta el texto si es muy largo
+    },
+    enLinea:{
+        flexDirection:'row',
+        justifyContent:'space-evenly',
+        alignItems:'center',
+    },
+    icon: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain'
+    }
   });
