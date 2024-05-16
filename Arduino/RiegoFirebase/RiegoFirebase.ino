@@ -9,19 +9,19 @@
 const char* ssid = "TP-Link_A7EA";
 const char* password = "xdfer12345";
 
-// Configuración del sensor DHT
-#define DHTPIN 4
-#define DHTTYPE DHT11
-DHT dht(DHTPIN, DHTTYPE);
-
 // Configuración de Firebase
 #define FIREBASE_HOST "https://esp32prueba-a1da6-default-rtdb.firebaseio.com/"
 #define FIREBASE_AUTH "dHxVXL13wcClIqXsRR5crQTtRj1dmSd0jqfkqfWC"
 
 FirebaseData firebaseData;
 String userId = "user01";
-String deviceId = "devicepruebarele";
+String deviceId = "devicepruebasensorh";
 String path = "usuarios";
+
+// Configuración del sensor DHT
+#define DHTPIN 4
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
 
 // Configuración de pantalla OLED
 #define SCREEN_WIDTH 128 // Ancho de la pantalla OLED
@@ -33,7 +33,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define BUTTON_PIN 0 // GPIO0 como pin del botón
 #define LED_PIN 2
 bool ledState = false; // Estado inicial del LED
-bool lastButtonState = HIGH; // Estado anterior del botón para detectar flanco descendente
+bool lastButtonState = HIGH; // Estado anterior del botón para detectar de high a low
 unsigned long lastButtonPressTime = 0; // Para evitar rebotes y actualizaciones rápidas
 unsigned long lastFirebaseCheck = 0; // Para controlar la frecuencia de actualización desde Firebase
 
@@ -75,9 +75,9 @@ void setup() {
 void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  float roundedTemp = round(t * 100) / 100.0; //redondear la temperatura a dos decimales
+  int roundedTemp = round(t);// pasarlo a entero
   int hs = analogRead(HS_PIN);
-  float hsPercent = map(hs, 0, 4095 ,100 ,0);
+  float hsPercent = map(hs, 1300, 4095 ,100 ,0);
 
   String basePath = "/"+ path +"/"+ userId + "/devices/" + deviceId;
   if (!isnan(h) && !isnan(t)) {
