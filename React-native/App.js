@@ -20,7 +20,8 @@ export default function App() {
   const handleCancelRegister = () => {
     setShowRegister(false);
   };
-
+  const handleClose = () =>  setShowRegister(false);
+  
   return (
     <NavigationContainer>
       <View style={styles.container}>
@@ -28,7 +29,7 @@ export default function App() {
           !showRegister ? (
             <LoginScreen onLogin={handleLogin} onShowRegister={handleShowRegister} />
           ) : (
-            <RegisterScreen onCancel={handleCancelRegister} />
+            <RegisterScreen onClose={handleClose} onCancel={handleCancelRegister} />
           )
         ) : (
           <Mytabs />

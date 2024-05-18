@@ -1,5 +1,5 @@
 import React, { useState,useEffect  } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,Modal} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,Modal,Image} from 'react-native';
 import { get, ref, query, orderByChild, equalTo } from 'firebase/database';
 import { database } from '../conexion/firebaseConfig'; // conexion con firebase
 import RegisterModalContent from '../screens/RegisterModal'; //la modla
@@ -65,46 +65,64 @@ const LoginScreen = ({ onLogin, onShowRegister }) => {
   };
 
   return (
+    
     <View style={styles.container}>
+      <View style={styles.imgContainer}>
+        <Image source={require('../assets/Icons/LogoLogin.png')} style={styles.logo} />
+      </View>
       <TextInput placeholder="Nombre" value={name} onChangeText={setName} style={styles.input} />
       <TextInput placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
       <TouchableOpacity onPress={handleLogin} style={styles.button}>
         <Text style={styles.buttonText}>Iniciar sesión</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={onShowRegister} style={styles.registerButton}>
-        <Text style={styles.registerText}>¿No tienes cuenta? Regístrate</Text>
+        <Text style={[styles.registerText,styles.mT10]}>¿No tienes cuenta? Regístrate</Text>
       </TouchableOpacity>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
+    flex: 1,
+    marginTop:'30%',
+    alignItems: 'center',
   },
   input: {
-  width: '80%',
-  padding: 10,
-  margin: 10,
-  borderWidth: 1,
-  borderColor: '#ddd',
-  borderRadius: 5,
+    width: '80%',
+    padding: 10,
+    margin: 10,
+    borderWidth: 1.5,
+    borderColor: '#68A74D',
+    borderRadius: 5,
   },
   button: {
-  backgroundColor: '#007bff',
+  backgroundColor: '#68A74D',
   padding: 10,
   borderRadius: 5,
   },
   buttonText: {
-  color: '#ffffff',
+    color: '#ffffff',
+    fontSize:15,
   },
-  registerMessage: {
+  mT10: {
     marginTop: 20,
   },
   registerText: {
-    color: '#007bff',
+    color: '#68A74D',
+    fontWeight:'bold',
+    fontStyle:'italic',
+    fontSize:18,
     textDecorationLine: 'underline',
   },
+  imgContainer:{
+    flexDirection:'row',
+    alignItems: 'center',
+    marginBottom:'15%',
+  },
+  logo:{
+    width:270,
+    height:140,
+    resizeMode:'stretch',
+  }
 });
 export default LoginScreen;

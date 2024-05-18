@@ -82,11 +82,6 @@ const styles = StyleSheet.create({
       paddingLeft:20,
       paddingBottom: 10
     },
-    linea: {
-        borderBottomColor: '#68A74D',
-        borderBottomWidth: 2,
-        alignSelf: 'stretch',
-    },
     buttonContainer: {
       marginTop: 15,
       alignItems: 'center',
