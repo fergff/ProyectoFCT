@@ -1,0 +1,33 @@
+
+.login-input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #68A74D;
+    border-radius: 5px;
+}
+  
+.login-button {
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #45a049;
+}
+  
+.login-logo {
+    width: 80%;
+    height: 30%;
+}
+
+.text-green{
+    color:  #68A74D;
+
+}
