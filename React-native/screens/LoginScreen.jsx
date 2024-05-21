@@ -74,6 +74,7 @@ const LoginScreen = ({ onLogin, onShowRegister }) => {
       <TextInput placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry style={styles.input} />
       <TouchableOpacity onPress={handleLogin} style={styles.button}>
         <Text style={styles.buttonText}>Iniciar sesión</Text>
+        <Image source={require('../assets/Icons/iconLogin.png')} />
       </TouchableOpacity>
       <TouchableOpacity onPress={onShowRegister} style={styles.registerButton}>
         <Text style={[styles.registerText,styles.mT10]}>¿No tienes cuenta? Regístrate</Text>
@@ -96,13 +97,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   button: {
-  backgroundColor: '#68A74D',
-  padding: 10,
-  borderRadius: 5,
+    backgroundColor: '#68A74D',
+    paddingVertical: 10,
+    paddingHorizontal:15,
+    borderRadius: 5,
+    flexDirection:'row',
   },
   buttonText: {
     color: '#ffffff',
-    fontSize:15,
+    fontSize:18,
+    marginEnd:5,
   },
   mT10: {
     marginTop: 20,

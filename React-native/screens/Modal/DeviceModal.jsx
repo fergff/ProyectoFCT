@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { ref, onValue, update } from 'firebase/database';
 import { database } from '../../conexion/firebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -66,28 +66,30 @@ const DeviceModal = ({ device, modalVisible, onClose }) => {
     >
     <View style={styles.Container}>
         {device && (
-        <View>
-            <Text style={styles.titulo}>{device.id}</Text>
-            <View style={styles.linea} />
+        <View style={{flex: 1,}}>
+            <View style={styles.cartitle} >
+                <Image source={require('../../assets/Icons/PottedPlant.png')} style={styles.logo} />
+                <Text style={styles.titulo}>{device.id}</Text>
+            </View>
+            
             <View style={styles.contenido}>
                 
                 <Text style={styles.texto}>Humedad Aire: {device.SensorHum == null ? "Nada" : device.SensorHum } %</Text>
                 <Text style={styles.texto}>Humedad Suelo: {device.SensorHumSuelo == null ? "Nada" : device.SensorHumSuelo} %</Text>
                 <Text style={styles.texto}>Temperatura: {device.Sensortemp == null ? "Nada" : device.Sensortemp} ºC</Text>
-                <TouchableOpacity
-                    style={[styles.button, { backgroundColor: ledState ? '#ff0000' : '#00ff00' }]}
-                    onPress={toggleLed}
-                    >
-                    <Text style={styles.buttonText}>{ledState ? 'Apagar LED' : 'Encender LED'}</Text>
-                    </TouchableOpacity>
+                <Text style={styles.texto}>Estado: {ledState ? 'Encendido' : 'Apagado'}</Text>
+
+                <View style={styles.abajo}>
+                  <TouchableOpacity
+                      style={[styles.button, { backgroundColor: ledState ? '#68A74D' : '#E53E3E' }]}
+                      onPress={toggleLed}
+                  >
+                      <Text style={styles.buttonText}>{ledState ? 'Apagar' : 'Encender'}</Text>
+                  </TouchableOpacity>
+                </View>
             </View>
         </View>
         )}
-        <View style={styles.abajo}>
-            <TouchableOpacity style={styles.button} onPress={onClose}>
-            <Text style={styles.buttonText}>Cerrar</Text>
-            </TouchableOpacity>
-        </View>
     </View>
 </Modal>
 );
@@ -96,41 +98,55 @@ const DeviceModal = ({ device, modalVisible, onClose }) => {
 const styles = new StyleSheet.create({
     Container: {
         flex: 1,
+        justifyContent: 'center',
         paddingTop: 5,
         backgroundColor: '#FFF',
         
     },
-    contenido:{
-        paddingTop: 10,
-        paddingHorizontal:10,
+    cartitle:{
+      backgroundColor:'#68A74D',
+      flexDirection:'row',
+      alignItems:'center',
+      marginHorizontal:5,
+      marginBottom:10,
+      borderRadius:5,
     },
-    linea: {
-        borderBottomColor: '#68A74D', // Color de la línea
-        borderBottomWidth: 2, // Grosor de la línea
-        alignSelf: 'stretch', // Hace que la línea se extienda en el ancho disponible
+    contenido:{
+      backgroundColor: '#FFF',
+      padding: 20,
+      margin:5,
+      borderRadius: 5,
+      borderColor: '#68A74D',
+      borderWidth: 3,
+
+      flex: 1,
+      justifyContent: 'space-between'
     },
     texto:{
-        fontSize: 20,
+      fontSize: 22,
     },
     titulo:{
+        paddingStart:10,
         fontSize: 25,
+        color:'white',
         fontWeight: 'bold',
-        textAlign:'center',
     },
     button: {
-        backgroundColor: '#9CB987',
         borderRadius: 5,
-        borderColor:'#68A74D',
-        borderWidth:3,
-        padding: 10,
+        paddingVertical: 15,
         margin: 5,
-        alignItems: 'center', // Centrar el contenido de la tarjeta
+        alignItems: 'center',
         shadowColor: "#000",
-      },
+    },
+    buttonText: {
+      fontSize: 20,
+      color:'white',
+      fontWeight:'bold',
+      fontStyle:'italic',
+    },
     abajo:{
         flex: 1,
         justifyContent: 'flex-end',
-        marginBottom: 15, 
     },
   });
 
