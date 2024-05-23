@@ -11,7 +11,7 @@ const RegisterModal = ({ isVisible, onClose,onCancel }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleRegister = async () => {
-    setIsVisible(false);
+    onClose();
     if (!name || !email || !password || !confirmPassword) {
       Alert.alert('Error', 'Por favor, rellena todos los campos.');
       return;
@@ -32,7 +32,7 @@ const RegisterModal = ({ isVisible, onClose,onCancel }) => {
     }
   
     // Si el nombre de usuario no existe, procede a crear el nuevo usuario
-    const newUserId = 'user' + Date.now(); // Esto crea un ID único basado en el timestamp actual
+    const newUserId = generateShortId(); // Esto crea un ID único basado en el timestamp actual
     const newUserRef = ref(database, `usuarios/${newUserId}`);
     set(newUserRef, {
       email: email,
@@ -43,6 +43,13 @@ const RegisterModal = ({ isVisible, onClose,onCancel }) => {
   
     Alert.alert('Registro exitoso', 'El usuario ha sido creado con éxito.');
     onCancel(); // Cierra el modal después del registro
+  };
+
+  const generateShortId = () => {
+    const timestamp = Date.now().toString();
+    const shortTimestamp = timestamp.substring(timestamp.length - 6); // Obtener los últimos 6 dígitos del timestamp
+    const randomNum = Math.floor(Math.random() * 100).toString().padStart(2, '0'); // Número aleatorio entre 0 y 99
+    return `user${shortTimestamp}${randomNum}`; // Concatenar para formar el ID
   };
 
   return (
