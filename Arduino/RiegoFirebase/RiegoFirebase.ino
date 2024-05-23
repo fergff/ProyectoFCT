@@ -68,23 +68,29 @@ void setup() {
   Firebase.reconnectWiFi(true);
   Serial.println("Conectado a Firebase");
 
-  String basePath = "/"+ path +"/"+ userId + "/devices/" + deviceId;
+  String basePath = "/" + path + "/" + userId + "/devices/" + deviceId;
   Firebase.setBool(firebaseData, basePath + "/SensorLed", ledState);
+  
+  // Añadir campos type y connected una sola vez
+  Firebase.setString(firebaseData, basePath + "/type", "plant");
+  Firebase.setBool(firebaseData, basePath + "/connected", true);
 }
 
 void loop() {
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  int roundedTemp = round(t);// pasarlo a entero
+  int roundedTemp = round(t); // pasarlo a entero
   int hs = analogRead(HS_PIN);
-  float hsPercent = map(hs, 1300, 4095 ,100 ,0);
+  float hsPercent = map(hs, 1300, 4095, 100, 0);
 
-  String basePath = "/"+ path +"/"+ userId + "/devices/" + deviceId;
+  String basePath = "/" + path + "/" + userId + "/devices/" + deviceId;
   if (!isnan(h) && !isnan(t)) {
     Firebase.setFloat(firebaseData, basePath + "/SensorHum", h);
     Firebase.setFloat(firebaseData, basePath + "/Sensortemp", roundedTemp);
     Firebase.setFloat(firebaseData, basePath + "/SensorHumSuelo", hsPercent);
   }
+
+  Firebase.setBool(firebaseData, basePath + "/connected", true);
 
   bool currentButtonState = digitalRead(BUTTON_PIN);
   if (currentButtonState != lastButtonState && (millis() - lastButtonPressTime > 50)) {
@@ -110,7 +116,7 @@ void loop() {
 
   // Actualizar la pantalla OLED
   display.clearDisplay();
-  display.setCursor(0,0);
+  display.setCursor(0, 0);
   display.print("Temp: ");
   display.print(t);
   display.println(" *C");
