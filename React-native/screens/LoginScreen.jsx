@@ -2,7 +2,7 @@ import React, { useState,useEffect  } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert,Modal,Image} from 'react-native';
 import { get, ref, query, orderByChild, equalTo } from 'firebase/database';
 import { database } from '../conexion/firebaseConfig'; // conexion con firebase
-import RegisterModalContent from '../screens/RegisterModal'; //la modla
+import RegisterModalContent from '../screens/Modal/RegisterModal'; //la modla
 import AsyncStorage from '@react-native-async-storage/async-storage'; // para guardar el userid
 
 const LoginScreen = ({ onLogin, onShowRegister }) => {

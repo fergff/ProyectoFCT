@@ -4,21 +4,34 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getDatabase, ref, update } from 'firebase/database';
 
 const ChangePasswordModal = ({ visible, onClose }) => {
+  // Estados para almacenar las nuevas contraseñas
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  // Maneja el cambio de contraseña
   const handleChangePassword = async () => {
+    // Verifica si los campos de contraseña no están vacíos
+    if (newPassword === '' || confirmPassword === '') {
+      Alert.alert("Error", "Rellena todos los campos.");
+      return;
+    }
+
+    // Verifica si las contraseñas coinciden
     if (newPassword !== confirmPassword) {
       Alert.alert("Error", "Las contraseñas no coinciden.");
       return;
     }
 
     try {
+      // Obtiene el ID de usuario almacenado en AsyncStorage
       const userId = await AsyncStorage.getItem('userId');
       if (!userId) throw new Error('No se encontró el ID de usuario');
 
+      // Obtiene una instancia de la base de datos
       const db = getDatabase();
-      const userRef = ref(db, `usuarios/${userId}`);
+      const userRef = ref(db, `usuarios/${userId}`); // Referencia al usuario
+
+      // Actualiza la contraseña en la base de datos
       await update(userRef, { pass: newPassword });
       Alert.alert("Éxito", "Contraseña actualizada con éxito!");
       onClose();
@@ -91,17 +104,17 @@ const styles = StyleSheet.create({
   },
   tittle:{
     color: '#68A74D', 
-    fontSize: 30 ,
-    paddingBottom:20,
+    fontSize: 30,
+    paddingBottom: 20,
     fontWeight: 'bold',
-    fontStyle:'italic',
+    fontStyle: 'italic',
   },
   border:{
-    width:'100%',
+    width: '100%',
     height: '100%',
     borderRadius: 15,
-    borderColor:'#68A74D',
-    borderWidth:3,
+    borderColor: '#68A74D',
+    borderWidth: 3,
     padding: 15,
   },
   input: {
@@ -118,7 +131,7 @@ const styles = StyleSheet.create({
     flex: 1, // Toma todo el espacio restante
     justifyContent: 'flex-end', // Alinea el botón hacia el final del contenedor
     alignItems: 'center',
-    paddingBottom:15,
+    paddingBottom: 15,
   },
   buttonChange: {
     backgroundColor: "#68A74D",

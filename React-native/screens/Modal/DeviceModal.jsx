@@ -11,7 +11,7 @@ const DeviceModal = ({ device, modalVisible, onClose }) => {
   useEffect(() => {
     const fetchLedState = async () => {
       try {
-        const storedUserId = await AsyncStorage.getItem('userId');
+        const storedUserId = await AsyncStorage.getItem('userId');// Obtiene el userId almacenado en AsyncStorage
         if (!device) {
             console.log("El dispositivo no está definido.");
             return;
@@ -40,7 +40,7 @@ const DeviceModal = ({ device, modalVisible, onClose }) => {
     fetchLedState();
   }, [device]);
 
-  const toggleLed = async () => {
+  const toggleLed = async () => {  // Función para alternar el estado del LED
     try {
       const storedUserId = await AsyncStorage.getItem('userId');
       if (!storedUserId) {
@@ -65,7 +65,7 @@ const DeviceModal = ({ device, modalVisible, onClose }) => {
     onRequestClose={onClose}
     >
     <View style={styles.Container}>
-        {device && (
+        {device && (// Comprueba si el objeto 'device' está definido antes de renderizar 
         <View style={{flex: 1,}}>
             <View style={styles.cartitle} >
                 <Image source={require('../../assets/Icons/PottedPlant.png')} style={styles.logo} />

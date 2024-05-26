@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterModal';
+import RegisterScreen from './screens/Modal/RegisterModal';
 import { NavigationContainer } from '@react-navigation/native';
 import Mytabs from './components/Mytabs';
 
@@ -13,6 +13,10 @@ export default function App() {
     setUserLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setUserLoggedIn(false);
+  };
+
   const handleShowRegister = () => {
     setShowRegister(true);
   };
@@ -20,8 +24,11 @@ export default function App() {
   const handleCancelRegister = () => {
     setShowRegister(false);
   };
-  const handleClose = () =>  setShowRegister(false);
-  
+
+  const handleClose = () => {
+    setShowRegister(false);
+  };
+
   return (
     <NavigationContainer>
       <View style={styles.container}>
@@ -32,7 +39,7 @@ export default function App() {
             <RegisterScreen onClose={handleClose} onCancel={handleCancelRegister} />
           )
         ) : (
-          <Mytabs />
+          <Mytabs onLogout={handleLogout} />
         )}
       </View>
     </NavigationContainer>

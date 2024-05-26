@@ -1,3 +1,4 @@
+import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import HomeScreen from '../screens/HomeScreen';
 import TiempoScreen from '../screens/TiempoScreen';
@@ -6,7 +7,7 @@ import { FontAwesome, Feather } from '@expo/vector-icons'; // Importa ambos icon
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function MyTabs() {
+export default function MyTabs({ onLogout }) {
     return (
         <Tab.Navigator
             initialRouteName="Home"
@@ -16,7 +17,7 @@ export default function MyTabs() {
                 tabBarStyle: {
                     backgroundColor: "#68A74D",
                     paddingTop: 30, // Reduce el padding vertical para que el menú ocupe menos espacio
-                    padding:5,
+                    padding: 5,
                 },
                 swipeEnabled: true,
                 tabBarIndicatorStyle: { // Oculta el indicador de la pestaña
@@ -31,10 +32,10 @@ export default function MyTabs() {
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: ({ color, size }) => (
-                    <FontAwesome name="home" color={color} size={size} />
+                        <FontAwesome name="home" color={color} size={size} />
                     ),
                 }}
-                />
+            />
             <Tab.Screen
                 name="Tiempo"
                 component={TiempoScreen}
@@ -47,7 +48,8 @@ export default function MyTabs() {
             />
             <Tab.Screen
                 name="Cuenta"
-                component={SettingsScreen}
+                // Pasa la función onLogout a SettingsScreen
+                children={() => <SettingsScreen onLogout={onLogout} />}
                 options={{
                     tabBarLabel: 'Cuenta',
                     tabBarIcon: ({ color, size }) => (
