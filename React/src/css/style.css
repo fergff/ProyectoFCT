@@ -45,3 +45,29 @@ body{
 .bg-green {
     background-color: #68A74D; 
 }
+.bg-red {
+    background-color: #bb2f2f; 
+}
+
+.card-hoverable {
+    cursor: pointer;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.397);
+    z-index: 1;
+    display: none; 
+  }
+.modal.show .modal-backdrop {
+    display: block;
+}
+
+.modal-dialog {
+    z-index: 2;
+}
+  
