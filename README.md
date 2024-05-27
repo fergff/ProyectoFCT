@@ -11,8 +11,8 @@ link:
 <a href="https://gyazo.com/f3e4d3e004bd520c18880eeec3521b03"><img src="https://i.gyazo.com/f3e4d3e004bd520c18880eeec3521b03.gif" alt="Image from Gyazo" width="248"/></a>
 
 <h3>ESP-32: </h3>
-<a href="#"><img src="https://i.gyazo.com/1fa34bd094e8edce906bc87a549a5b91.png" width="421"></a>
-<a href="https://gyazo.com/263d44d0c578436f3d94cf36219673eb"><img src="https://i.gyazo.com/263d44d0c578436f3d94cf36219673eb.gif" alt="Image from Gyazo" width="450"/></a>
+<a href="#"><img src="https://i.gyazo.com/1fa34bd094e8edce906bc87a549a5b91.png" width="296"></a>
+<a href="https://gyazo.com/263d44d0c578436f3d94cf36219673eb"><img src="https://i.gyazo.com/263d44d0c578436f3d94cf36219673eb.gif" alt="Image from Gyazo" width="350"/></a>
 <a href="https://gyazo.com/6212fab06cac6e415c7f04f9d72fffab"><img src="https://i.gyazo.com/6212fab06cac6e415c7f04f9d72fffab.gif" alt="Image from Gyazo" width="421"/></a>
 
 <h2>Tecnologías Utilizadas</h2>
