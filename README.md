@@ -3,8 +3,11 @@
 <h2>Descripción</h2>
 Este proyecto de Trabajo de Fin de Grado (TFG) tiene como objetivo desarrollar un sistema de riego automatizado utilizando un microcontrolador ESP-32. El sistema es controlado a través de una aplicación web y móvil, permitiendo a los usuarios gestionar el riego de sus plantas de manera eficiente y cómoda
 <h3>Aplicacion Web: </h3>
-link:
-<br>
+link:<a href="https://webplant4all-9c2a2.firebaseapp.com/"> webplant4all-9c2a2.firebaseapp.com</a>
+<br><br>
+<a href="https://gyazo.com/5767cdf9605fd48467d0619d509819b8"><img src="https://i.gyazo.com/5767cdf9605fd48467d0619d509819b8.gif" alt="Image from Gyazo" width="380"/></a>
+<a href="https://gyazo.com/22e7c07aae1320d0e9a7029dfa0406d4"><img src="https://i.gyazo.com/22e7c07aae1320d0e9a7029dfa0406d4.gif" alt="Image from Gyazo" width="380"/></a>
+<a href="https://gyazo.com/4cd60590933410325512763741114e54"><img src="https://i.gyazo.com/4cd60590933410325512763741114e54.gif" alt="Image from Gyazo" width="380"/></a>
 <h3>Aplicacion Movil: </h3>
 <a href="https://gyazo.com/355afd820d658f335d42e6b37b95edc3"><img src="https://i.gyazo.com/355afd820d658f335d42e6b37b95edc3.gif" alt="Image from Gyazo" width="250"/></a>
 <a href="https://gyazo.com/e2bb825cd1c1bae2d8dd5cf0ab71179c"><img src="https://i.gyazo.com/e2bb825cd1c1bae2d8dd5cf0ab71179c.gif" alt="Image from Gyazo" width="249"/></a>
