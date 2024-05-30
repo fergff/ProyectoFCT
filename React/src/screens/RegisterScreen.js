@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ref, set, get, query, orderByChild, equalTo } from 'firebase/database';
 import { database } from '../conexion/firebaseConfig';
-
+import '../css/style.css'; //hoja de stiloss
 function RegisterScreen() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -58,20 +58,24 @@ function RegisterScreen() {
 
   return (
     <div className='d-flex flex-column justify-content-center' style={{ height: '100vh' }}>
+      
        <div className="container d-flex justify-content-center">
-          <div className='w-50 p-4 border-green-rounded'>
-            <h2 className='text-green'>Registrarse</h2>
+          <div className='w-50'>
+            <img src={require('../assets/Icons/LogoLogin.png')} alt="Logo" className='pb-2'  />
+              <div className='w-100 p-4 border-green-rounded'>
+                <h2 className='text-green'>Registrarse</h2>
 
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" className="login-input"/>
-            <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Nombre" className="login-input" />
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Contraseña" className="login-input"/>
-            <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar Contraseña"  className="login-input"/>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" className="login-input"/>
+                <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Nombre" className="login-input" />
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Contraseña" className="login-input"/>
+                <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar Contraseña"  className="login-input"/>
 
-            <div className='d-flex justify-content-between'>
-              <button onClick={handleRegister} className="login-button mx-2">Registrarse</button>
-              <button onClick={handleCancel} className="login-button mx-2">Cancelar</button>
-            </div>
-            {error && <div className='mt-2 ms-2' style={{ color: 'red' }}>{error}</div>}
+                <div className='d-flex justify-content-between'>
+                  <button onClick={handleRegister} className="  login-button mx-2">Registrarse</button>
+                  <button onClick={handleCancel} className=" login-button mx-2">Cancelar</button>
+                </div>
+                {error && <div className='mt-2 ms-2' style={{ color: 'red' }}>{error}</div>}
+              </div>
           </div>
        </div>
     </div>

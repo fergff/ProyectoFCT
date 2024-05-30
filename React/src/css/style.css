@@ -38,6 +38,10 @@ body{
     height: 30%;
 }
 
+.register-logo {
+    width: 200px;
+}
+
 .text-green{
     color:  #68A74D;
 }

@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import HomePage from './screens/HomePage';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 function App() {
   return (

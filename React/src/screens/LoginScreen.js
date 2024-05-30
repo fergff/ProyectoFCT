@@ -8,15 +8,15 @@ function LoginScreen() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  /*
+  
       useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId) {
           window.alert('Autenticado automáticamente.');
-          navigate('/home'); // O la ruta que corresponda a tu página principal
+          navigate('/home'); //navegamos al home
         }
       }, [navigate]);
-  */
+  
   const handleLogin = async () => {
     const usersRef = ref(database, 'usuarios');
     const userQuery = query(usersRef, orderByChild('name'), equalTo(name));
