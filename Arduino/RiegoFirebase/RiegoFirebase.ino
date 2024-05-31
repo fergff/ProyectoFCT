@@ -13,9 +13,10 @@ const char* password = "xdfer12345";
 #define FIREBASE_HOST "https://esp32prueba-a1da6-default-rtdb.firebaseio.com/"
 #define FIREBASE_AUTH "dHxVXL13wcClIqXsRR5crQTtRj1dmSd0jqfkqfWC"
 
+//Configuracion del Dipositivo
 FirebaseData firebaseData;
-String userId = "user01";
-String deviceId = "devicepruebasensorh";
+String userId = "user01"; // Cambiar por tu usuario
+String deviceId = "devicepruebasensorh"; // id de dispositivo
 String path = "usuarios";
 
 // Configuración del sensor DHT
